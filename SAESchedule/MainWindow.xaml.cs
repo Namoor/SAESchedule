@@ -24,11 +24,20 @@ namespace SAESchedule
 
         private static string saveFile = "./persistent.bin";
 
+        public List<User> MW_userList;
+        
+
 		public MainWindow()
 		{
 			InitializeComponent();
 
             AutoLoad();
+
+
+            //Initalizirung
+            MW_userList = new List<User>();
+         
+
 		}
 
         private void AutoLoad()
@@ -43,5 +52,28 @@ namespace SAESchedule
                 }
             }
         }
+
+       
+
+        private bool AddUser()
+        {
+
+            
+
+            return false;
+        
+        
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            UserAddWindow win = new UserAddWindow();
+            win.Show();
+            win.mainW = this; ;
+            
+            
+        }
+
+      
 	}
 }

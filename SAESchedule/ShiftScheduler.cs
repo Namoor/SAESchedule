@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
-
+using System.Xml.Linq;
+using Microsoft.Win32;
 
 namespace SAESchedule
 {
@@ -55,6 +56,8 @@ namespace SAESchedule
         /// <returns></returns>
         public static bool Load(Stream _stream)
         {
+
+            // TODO: GO Load Dat Stas
             throw new NotImplementedException();
         }
 
@@ -65,7 +68,52 @@ namespace SAESchedule
         /// <returns></returns>
         public static bool Save(Stream _stream)
         {
-            throw new NotImplementedException();
+
+            // Opening window to set Save Path
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "xml";
+            if (sfd.ShowDialog() == true)
+            {
+
+                //Creating Ducument and Root Element
+                XDocument doc = new XDocument();
+                XElement root = new XElement("Root");
+                doc.Add(root);
+
+
+
+
+                // Saves All User in own Users parent Element
+                XElement eleUsers = new XElement("User");
+                
+                foreach (User user in allUsers)
+                {
+                    //Stores ShiftID as Element Name and other member Variables of 
+                    XElement eleUser = new XElement(user.ShiftID);
+                    eleUser.Add(new XAttribute("GivenName",user.GivenName),new XAttribute("LastName",user.LastName),new XAttribute("",((int)user.SalaryType).ToString()), new XAttribute("MaxRev",user.MaxRevenue.ToString()));
+                    eleUsers.Add(eleUser);
+                }
+
+                // Save Month Settings
+
+                XElement eleMonths = new XElement("Months");
+
+                foreach (Month month in allMonths)
+	            {
+
+		 
+	            }
+                
+
+                
+
+
+
+                return true;
+            }
+            else return false;
+
+            
         }
 
         /// <summary>
@@ -93,7 +141,7 @@ namespace SAESchedule
 
         public static void ExportShifts()
         {
-
+            //TODO: Google Calender Exporter
         }
 
         private static void CalculateShift(Shift _shift, ref Dictionary<string, int> _hours)

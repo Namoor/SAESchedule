@@ -81,7 +81,7 @@ namespace SAESchedule
             // set the new value
             ShiftID = _newShiftID;
         }
-
+        
         /// <summary>
         /// Changes the max revenue for this user
         /// </summary>
@@ -107,7 +107,20 @@ namespace SAESchedule
             // recalculate the shifts
             ShiftScheduler.Calculate();
         }
+        
 
+        /// <summary>
+        /// Returns Maximum nummber of Hours
+        /// </summary>
+        public int GetMaxHours()
+        {
+            int maxH = (int)(MaxRevenue / ((float)SalaryType /10.0f));
+
+            return maxH;
+        }
+
+
+        
     }
 
 }

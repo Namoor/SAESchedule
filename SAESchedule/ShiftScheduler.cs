@@ -85,30 +85,62 @@ namespace SAESchedule
 
                 // Saves All User in own Users parent Element
                 XElement eleUsers = new XElement("User");
-                
+                root.Add(eleUsers);
+
+
                 foreach (User user in allUsers)
                 {
                     //Stores ShiftID as Element Name and other member Variables of 
                     XElement eleUser = new XElement(user.ShiftID);
                     eleUser.Add(new XAttribute("GivenName",user.GivenName),new XAttribute("LastName",user.LastName),new XAttribute("",((int)user.SalaryType).ToString()), new XAttribute("MaxRev",user.MaxRevenue.ToString()));
                     eleUsers.Add(eleUser);
+                    
                 }
 
                 // Save Month Settings
 
+                
+
+
                 XElement eleMonths = new XElement("Months");
+                root.Add(eleMonths);
 
                 foreach (Month month in allMonths)
 	            {
+                    XElement eleMonth = new XElement(month.Year + ", " + month.m_Month);
+                    eleMonths.Add(eleMonth);
 
-		 
+                    //Gets all shifts from Funktion
+                    List<Shift> Shifters = month.GetShifts();
+
+
+
+                    foreach (Shift item in Shifters)
+                    {
+                        XElement shift = new XElement(item.UserID);
+                        eleMonth.Add(shift);
+                        shift.Add(new XAttribute("begin", item.begin.ToString()), 
+                                  new XAttribute("end", item.end.ToString()),
+                                  new XAttribute("houers", item.Hours.ToString()), 
+                                  new XAttribute("Faculty", item.ShiftFaculty.ToString()));
+                        
+                        //TODO: Add List of UserShifts to XML as Element of shift
+
+
+                        
+                           
+                        
+
+
+                    }
+
 	            }
-                
-
-                
 
 
 
+
+
+                doc.Save(sfd.FileName);
                 return true;
             }
             else return false;

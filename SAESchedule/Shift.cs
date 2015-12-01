@@ -29,7 +29,7 @@ namespace SAESchedule
             /// <summary>
             /// The User this settings belong to
             /// </summary>
-            public readonly string User;
+            public readonly string User; // Use other name User already Class na
 
             /// <summary>
             /// The Preference of the user regarding this shift
